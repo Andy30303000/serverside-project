@@ -270,11 +270,11 @@
                             <p class="number"><%= user.postCount || 0 %></p>
                             <p class="label">Posts</p>
                         </div>
-                    <div class="stat" style="cursor: default; opacity: 0.7;">
+                    <div class="stat" style="cursor: pointer; opacity: 0.8;" onclick="alert('Invisible to protect privacy of user')">
                         <p class="number"><%= user.followingCount || 0 %></p>
                         <p class="label">Following</p>
                     </div>
-                    <div class="stat" style="cursor: default; opacity: 0.7;">
+                    <div class="stat" style="cursor: pointer; opacity: 0.8;" onclick="alert('Invisible to protect privacy of user')">
                         <p class="number"><%= user.followerCount || 0 %></p>
                         <p class="label">Followers</p>
                     </div>
@@ -341,4 +341,5 @@
     </script>
 </body>
 </html>
+
 
