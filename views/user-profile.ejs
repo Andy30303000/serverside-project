@@ -168,10 +168,10 @@
 <body>
     <div class="main-container">
         <%- include('partials/navbar') %>
-       
+      
         <div class="content">
             <a href="/home" class="btn-back">back homepage</a>
-            
+           
             <div class="profile-header">
                 <div class="profile-info-container">
                     <img
@@ -179,7 +179,7 @@
                         alt="<%= viewedUser.username %>"
                         class="profile-avatar-large"
                     >
-                   
+                  
                     <div class="profile-details">
                         <h1 class="profile-username">
                             <%= viewedUser.username %>
@@ -187,30 +187,26 @@
                                 <span class="following-badge">following</span>
                             <% } %>
                         </h1>
-                       
+                      
                         <div class="profile-stats-row">
-                            <!-- Posts (clickable as before) -->
                             <div class="stat-item">
                                 <span class="number"><%= viewedUser.postCount || 0 %></span>
                                 <span class="label">posts</span>
                             </div>
-                            
-                            <!-- Followers - now shows private message -->
+                           
                             <div class="stat-item" onclick="alert('This content is private')">
                                 <span class="number"><%= viewedUser.followerCount || 0 %></span>
                                 <span class="label">fans</span>
                             </div>
-                            
-                            <!-- Following - now shows private message -->
+                           
                             <div class="stat-item" onclick="alert('This content is private')">
                                 <span class="number"><%= viewedUser.followingCount || 0 %></span>
                                 <span class="label">following</span>
                             </div>
                         </div>
 
-                        <!-- Follow/Unfollow button replaced with "under development" -->
                         <div class="action-buttons">
-                            <!-- Original follow/unfollow logic (commented out - can be restored later) -->
+                            <!-- Original follow logic preserved (commented) -->
                             <!--
                             <% if (isFollowing) { %>
                                 <button class="btn-unfollow" onclick="unfollowUser('<%= viewedUser._id %>')">
@@ -218,14 +214,13 @@
                                 </button>
                             <% } else { %>
                                 <button class="btn-follow" onclick="followUser('<%= viewedUser._id %>')">
-                                    follow
+                                    Follow
                                 </button>
                             <% } %>
                             -->
 
-                            <!-- Temporary button - feature under development -->
-                            <button class="btn-follow"
-                                    style="background-color:#dbdbdb;color:#262626;cursor:pointer;opacity:0.9;"
+                            <!-- Blue Follow button - looks normal, but disabled -->
+                            <button class="btn-follow" 
                                     onclick="alert('This feature is under development')">
                                 Follow
                             </button>
@@ -234,10 +229,9 @@
                 </div>
             </div>
 
-            <!-- User's posts section -->
             <div class="posts-section">
                 <h3><%= viewedUser.username %> posts (<%= userPosts.length %>)</h3>
-               
+              
                 <% if (userPosts.length === 0) { %>
                     <div class="empty-posts">
                         <h3>No posts have been published yet</h3>
@@ -259,8 +253,8 @@
         </div>
     </div>
 
-    <!-- Original follow/unfollow functions (commented out) -->
-    <script>
+    <!-- Follow/Unfollow functions disabled (commented) -->
+   <script>
     /* ============================================================
        Follow / Unfollow functions have been temporarily disabled
        to prevent E11000 duplicate key errors during demo.
@@ -306,5 +300,6 @@
     }
     */
 </script>
+
 </body>
 </html>
