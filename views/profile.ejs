@@ -270,14 +270,16 @@
                             <p class="number"><%= user.postCount || 0 %></p>
                             <p class="label">Posts</p>
                         </div>
-                    <div class="stat" style="cursor: pointer; opacity: 0.8;" onclick="alert('Invisible to protect privacy of user')">
-                        <p class="number"><%= user.followingCount || 0 %></p>
-                        <p class="label">Following</p>
-                    </div>
-                    <div class="stat" style="cursor: pointer; opacity: 0.8;" onclick="alert('Invisible to protect privacy of user')">
-                        <p class="number"><%= user.followerCount || 0 %></p>
-                        <p class="label">Followers</p>
-                    </div>
+                   <div class="stat" style="cursor: pointer; opacity: 0.75;" 
+     onclick="alert('Invisible to protect user privacy')">
+    <p class="number" style="color: #e0e0e0;"><%= user.followingCount || 0 %></p>
+    <p class="label" style="color: #888;">Following</p>
+</div>
+<div class="stat" style="cursor: pointer; opacity: 0.75;" 
+     onclick="alert('Invisible to protect user privacy')">
+    <p class="number" style="color: #e0e0e0;"><%= user.followerCount || 0 %></p>
+    <p class="label" style="color: #888;">Followers</p>
+</div>
                     </div>
                    
                     <!-- Action buttons -->
@@ -341,5 +343,6 @@
     </script>
 </body>
 </html>
+
 
 
