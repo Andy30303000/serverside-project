@@ -1,69 +1,45 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+// models/user.js  
+var mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,        // Unique index defined here only
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,        // Unique index defined here only
-    lowercase: true,
-    trim: true
-  },
-  password: {
-    type: String,
-    required: false      // Allow null for GitHub login users
-  },
-  githubId: {
-    type: String,
-    unique: true,        // Unique index defined here only
-    sparse: true         // Allows null values (important for non-GitHub users)
-  },
-  profileImage: {
-    type: String,
-    default: '/images/default-avatar.jpg'
-  },
-  postCount: {
-    type: Number,
-    default: 0
-  },
- FollowerCount: {
-    type: Number,
-    default: 0
-  },
-  followingCount: {
-    type: Number,
-    default: 0
-  },
-  followers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  following: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+var userSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: 3,
+        maxlength: 20,
+        match: /^[a-zA-Z0-9_]+$/  
+    },
+    
+    githubId: { 
+        type: String, 
+        unique: true,
+        sparse: true   
+    },
+    password: {
+        type: String,
+        required: function() {
+            return !this.githubId;  
+        },
+        minlength: 6
+    },
+    profileImage: {
+        type: String,
+        default: '/images/default-avatar.jpg'
+    },
+    followerCount: { type: Number, default: 0, min: 0 },
+    followingCount: { type: Number, default: 0, min: 0 },
+    postCount: { type: Number, default: 0, min: 0 }
 }, {
-  timestamps: true
+    timestamps: true
 });
 
-// Hash password before saving (only if password exists and is modified)
-userSchema.pre('save', async function (next) {
-  if (this.password && this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
+userSchema.index({ username: 1 });
+userSchema.index({ githubId: 1 });  
+
+userSchema.virtual('formattedDate').get(function() {
+    return this.createdAt ? this.createdAt.toLocaleDateString('en-US') : '';
 });
 
-// CRITICAL FIX: DO NOT use schema.index() for fields already marked as unique above
-// Remove any lines like these if they exist in your original file:
-// userSchema.index({ username: 1 }, { unique: true });
-// userSchema.index({ githubId: 1 }, { unique: true });
-// They cause the "Duplicate schema index" warning!
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = userSchema;
